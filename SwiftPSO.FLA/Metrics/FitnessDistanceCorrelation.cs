@@ -16,7 +16,7 @@ namespace SwiftPSO.FLA.Metrics
 {
     public class FitnessDistanceCorrelation
     {
-        private EuclideanDistance distanceMeasure = new EuclideanDistance();
+        private readonly EuclideanDistance distanceMeasure = new EuclideanDistance();
 
         public double Calculate(IEnumerable<OptimizationSolution> solutions)
         {

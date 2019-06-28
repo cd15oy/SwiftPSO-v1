@@ -5,28 +5,22 @@
 /___/ |__,__//_//_/  \__//_/   /___/ \____/    
 
  */
-using SwiftPSO.Core.Problem;
 using SwiftPSO.Core.Types;
 
 namespace SwiftPSO.FLA.Sampling
 {
     public class UniformSample
     {
-        public OptimizationSolution[] Sample(int samples, IProblem problem)
+        public Vector[] Sample(int samples, Domain domain)
         {
-            OptimizationSolution[] result = new OptimizationSolution[samples];
+            Vector[] result = new Vector[samples];
             for (int i = 0; i < samples; i++)
             {
-                Vector position = new Vector(problem.Dimensions);
+                Vector position = new Vector(domain.Dimension);
 
-                position.Randomize(problem.ProblemDomain.DimensionBounds);
+                position.Randomize(domain.DimensionBounds);
 
-                //for (int d = 0; d < problem.Dimensions; d++)
-                //{
-                //    position[d] = RandomProvider.NextDouble(problem.ProblemDomain[d]);
-                //}
-
-                result[i] = new OptimizationSolution(position, problem.Evaluate(position));
+                result[i] = position.Clone(); //TODO: is clone necessary?
             }
 
             return result;

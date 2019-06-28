@@ -44,9 +44,6 @@ namespace SwiftPSO.FLA.Metrics
                     else result.Add(0.5);
                 }
             }
-            //Console.WriteLine(length);
-            //Console.WriteLine(result.Count);
-            //Console.WriteLine("---------");
             return result;
         }
 

@@ -16,8 +16,7 @@ namespace SwiftPSO.FLA.Metrics
 {
     public class DispersionMetric
     {
-        private EuclideanDistance distanceMeasure = new EuclideanDistance();
-
+        private readonly EuclideanDistance distanceMeasure = new EuclideanDistance();
         public double Calculate(IEnumerable<OptimizationSolution> solutions, Bounds[] bounds, double sampleSize = 0.1)
         {
             OptimizationSolution[] sorted = solutions.OrderByDescending(x => x.Fitness).Select(x => Helpers.Normalize(x, bounds)).ToArray();

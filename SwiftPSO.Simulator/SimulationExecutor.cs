@@ -96,7 +96,6 @@ namespace SwiftPSO.Simulator
             //this assumes all tasks have the same measurements, which should be true since they are created by the same function.
             MeasurementSuite measurementSuite = tasks[0].Result.MeasurementSuite;
 
-            //for (var index = 0; index < measurements.Count; index++)
             foreach (var kvp in measurementSuite.Measurements)
             {
                 IMeasurement<IMeasurable> measurement = kvp.Value;

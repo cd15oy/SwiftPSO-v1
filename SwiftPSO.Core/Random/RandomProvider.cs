@@ -20,7 +20,6 @@ namespace SwiftPSO.Core.Random
 
         private static System.Random RandomObject => _random ?? (_random = new System.Random(Interlocked.Increment(ref _seed)));
 
-
         /// <summary>
         /// Return a random double value in [0, 1)
         /// </summary>
@@ -39,6 +38,17 @@ namespace SwiftPSO.Core.Random
         public static double NextDouble(Bounds bounds)
         {
             return RandomObject.NextDouble() * bounds.Range + bounds.LowerBound;
+        }
+
+        /// <summary>
+        /// Return a random double value within the range of [min, max].
+        /// </summary>
+        /// <param name="min">The minimum of the random value.</param>
+        /// <param name="max">The maximum of the random value.</param>
+        /// <returns></returns>
+        public static double NextDouble(double min, double max)
+        {
+            return RandomObject.NextDouble() * (max - min) + min;
         }
 
         /// <summary>
