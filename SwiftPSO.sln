@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwiftPSO.Benchmarks.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwiftPSO.FLA", "SwiftPSO.FLA\SwiftPSO.FLA.csproj", "{66E6C09A-5023-4109-980C-9FD057CF1A55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwitftPSO.FLA.Test", "SwiftPSO.FLA.Test\SwitftPSO.FLA.Test.csproj", "{32575D27-A075-456F-9148-483BEF48F488}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{66E6C09A-5023-4109-980C-9FD057CF1A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E6C09A-5023-4109-980C-9FD057CF1A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E6C09A-5023-4109-980C-9FD057CF1A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32575D27-A075-456F-9148-483BEF48F488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32575D27-A075-456F-9148-483BEF48F488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32575D27-A075-456F-9148-483BEF48F488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32575D27-A075-456F-9148-483BEF48F488}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
