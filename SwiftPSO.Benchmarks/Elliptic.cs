@@ -28,7 +28,7 @@ namespace SwiftPSO.Benchmarks
             double sum = 0;
             for (int i = 0; i < input.Length; i++)
             {
-                sum += Math.Pow(ConditionNumber, i / (input.Length - 1)) * input[i] * input[i];
+                sum += Math.Pow(ConditionNumber, i / (input.Length - 1.0)) * input[i] * input[i];
             }
 
             return sum;
