@@ -14,5 +14,7 @@ namespace SwiftPSO.Core.Fitness
         double Value { get; }
 
         IFitness Clone();
+
+        IFitness GetNew(double value); //Returns a new fitness object of the underlying type, having the provided value
     }
 }

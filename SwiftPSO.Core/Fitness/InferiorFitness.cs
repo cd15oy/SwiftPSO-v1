@@ -34,5 +34,9 @@ namespace SwiftPSO.Core.Fitness
             return Instance;
         }
 
+        public IFitness GetNew(double value) {
+            return Instance;
+        }
+
     }
 }

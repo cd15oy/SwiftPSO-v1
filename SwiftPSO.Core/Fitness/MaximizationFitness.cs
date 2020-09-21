@@ -23,6 +23,10 @@ namespace SwiftPSO.Core.Fitness
             return new MaximizationFitness(Value);
         }
 
+        public IFitness GetNew(double value) {
+            return new MaximizationFitness(value);
+        }
+
         /// <summary>
         /// Compare this fitness instance to another IFitness.
         /// </summary>
