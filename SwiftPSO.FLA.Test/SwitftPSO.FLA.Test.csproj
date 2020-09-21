@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SwiftPSO.Benchmarks\SwiftPSO.Benchmarks.csproj" />
+    <ProjectReference Include="..\SwiftPSO.Core\SwiftPSO.Core.csproj" />
+    <ProjectReference Include="..\SwiftPSO.Simulator\SwiftPSO.Simulator.csproj" />
+    <ProjectReference Include="..\SwiftPSO.FLA\SwiftPSO.FLA.csproj" />
+  </ItemGroup>
+
+</Project>

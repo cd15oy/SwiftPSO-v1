@@ -1,0 +1,1 @@
+Some simple sanity checks for the various FLA metrics have been added. These checks are performed by comparing the output of the SwiftPSO's metric implementations to the output generated from independent implementations calculated for the same benchmark functions using uniform random sampling. 
