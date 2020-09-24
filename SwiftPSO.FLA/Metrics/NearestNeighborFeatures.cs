@@ -28,12 +28,21 @@ namespace SwiftPSO.FLA.Metrics
                 xSqrSum += (x[i]*x[i]);
                 ySqrSum += (y[i]*y[i]);
             }
-            return (productSum - (x.Length*aveX*aveY))/(Math.Sqrt(xSqrSum-(x.Length*aveX*aveX))*Math.Sqrt(ySqrSum -(x.Length*aveY*aveY)));
+
+            //If denominators invalid, adjust to arbitrary small value 
+            //odd data/rounding errors sometimes give very small negative numbers 
+            double xDenom = xSqrSum-(x.Length*aveX*aveX);
+            if(xDenom <= 0) xDenom = 0.0000000001;
+            double yDenom = ySqrSum -(y.Length*aveY*aveY);
+            if(yDenom <= 0) yDenom = 0.0000000001;
+
+            return (productSum - (x.Length*aveX*aveY))/(Math.Sqrt(xDenom)*Math.Sqrt(yDenom));
         }
 
         public (double,double,double,double,double) Calculate(IEnumerable<OptimizationSolution> solutions, Bounds[] bounds)
         {
             OptimizationSolution[] sorted = solutions.OrderByDescending(x => x.Fitness).Select(x => Helpers.Normalize(x, bounds)).ToArray();
+            //OptimizationSolution[] sorted = solutions.OrderByDescending(x => x.Fitness).ToArray();
 
             Matrix dist = new Matrix(sorted.Length, sorted.Length);
             for(int i = 0; i < sorted.Length; i++) {
@@ -54,7 +63,7 @@ namespace SwiftPSO.FLA.Metrics
                 for(int j = 0; j < sorted.Length; j++) {
                     if(i == j) continue; //Don't compare with self 
                     if(dist[i,j] < dist[i,NearestNeighbor[i]]) NearestNeighbor[i] = j; //Find any sol thats closer 
-                    if(sorted[i].Fitness.CompareTo(sorted[j].Fitness) > 0) 
+                    if(sorted[i].Fitness.CompareTo(sorted[j].Fitness) < 0) 
                         if(NearestBetter[i] == -1 || dist[i,j] < dist[i,NearestBetter[i]])
                             NearestBetter[i] = j;
                 }
@@ -75,23 +84,32 @@ namespace SwiftPSO.FLA.Metrics
             double AveNND = NearestNeighborDistances.Average();
             double SDNND = NearestNeighborDistances.Sum(x => Math.Pow(x-AveNND,2));
             SDNND /= (NearestNeighborDistances.Length-1.0);
+            SDNND = Math.Sqrt(SDNND);
 
             double AveNBD = NearestBetterDistances.Average();
             double SDNBD = NearestBetterDistances.Sum(x => Math.Pow(x-AveNBD,2));
             SDNBD /= (NearestBetterDistances.Length - 1.0);
+            SDNBD = Math.Sqrt(SDNBD);
 
             double CorNNNB = cor(NearestNeighborDistances, NearestBetterDistances, AveNND, AveNBD);
 
-            double[] qnnnb = new double[sorted.Length];
+            double[] qnnnbT = new double[sorted.Length];
+            int ptr = 0;
             for(int i = 0; i < sorted.Length; i++)
-                if(NearestBetterDistances[i] != 0)
-                    qnnnb[i] = NearestNeighborDistances[i]/NearestBetterDistances[i];
-                else 
-                    qnnnb[i] = NearestNeighborDistances[i]/0.0000000001;
+                if(NearestBetterDistances[i] != 0) {
+                    qnnnbT[ptr] = NearestNeighborDistances[i]/NearestBetterDistances[i];
+                    ptr++;
+                }
+                
+            double[] qnnnb = new double[ptr];
+            for(int i = 0; i < ptr; i++)
+                qnnnb[i] = qnnnbT[i];
                     
             double AveQNNNB = qnnnb.Average();
             double SDQNNNB = qnnnb.Sum(x => Math.Pow(x-AveQNNNB,2));
             SDQNNNB /= (qnnnb.Length -1);
+            SDQNNNB = Math.Sqrt(SDQNNNB);
+            
 
             double[] nbInDeg = new double[sorted.Length];
             //for each point x, count the number of other points for which x is the nearest better
@@ -105,7 +123,7 @@ namespace SwiftPSO.FLA.Metrics
             double AveFit = sorted.Average(x => x.Fitness.Value);
             double InDegCor = -cor(nbInDeg, sorted.Select(x=>x.Fitness.Value).ToArray(), AveInDeg, AveFit);
 
-            return (SDNND/SDNBD, AveNND/AveNBD, CorNNNB, SDQNNNB, InDegCor);
+            return (SDNND/SDNBD, AveNND/AveNBD, CorNNNB, SDQNNNB/AveQNNNB, InDegCor);
 
         }
     }
