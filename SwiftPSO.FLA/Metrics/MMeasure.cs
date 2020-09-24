@@ -33,7 +33,7 @@ namespace SwiftPSO.FLA.Metrics
             int lengthOfCurrentSection = 0;
 
             for(int i = 1; i < solutionArray.Length-1; i++) {
-                if(Neutral(solutionArray, i, Threshold)) {
+                if(Neutral(normalizedFit, i, Threshold)) {
                     totalNeutralSections++;
                     lengthOfCurrentSection++;
                 } else {
@@ -42,7 +42,7 @@ namespace SwiftPSO.FLA.Metrics
                 }
             }
 
-            double ProportionOfNeutralSections = totalNeutralSections/(solutionArray.Length + 0.0);
+            double ProportionOfNeutralSections = (totalNeutralSections+0.0)/(solutionArray.Length + 0.0);
             double ProportionOfLongestSection = longestNeutralSequence/(solutionArray.Length + 0.0);
 
             return (ProportionOfNeutralSections, ProportionOfLongestSection);
